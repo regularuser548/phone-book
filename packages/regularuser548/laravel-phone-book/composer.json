@@ -1,0 +1,26 @@
+{
+    "name": "regularuser548/laravel-phone-book",
+    "type": "library",
+    "require": {
+        "php": "^8.3",
+        "illuminate/support": "^12.16"
+    },
+    "autoload": {
+        "psr-4": {
+            "Regularuser548\\LaravelPhoneBook\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "regularuser548",
+            "email": "regularuser548@tutanota.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Regularuser548\\PhoneBook\\PhoneBookServiceProvider"
+            ]
+        }
+    }
+}
