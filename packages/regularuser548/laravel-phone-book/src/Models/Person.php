@@ -1,6 +1,6 @@
 <?php
 
-namespace Regularuser548\PhoneBook\Models;
+namespace Regularuser548\LaravelPhoneBook\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
