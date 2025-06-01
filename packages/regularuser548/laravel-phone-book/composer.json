@@ -19,7 +19,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Regularuser548\\PhoneBook\\PhoneBookServiceProvider"
+                "Regularuser548\\LaravelPhoneBook\\Providers\\PhoneBookServiceProvider"
             ]
         }
     }

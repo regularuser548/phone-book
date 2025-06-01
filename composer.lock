@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "88970a0117c062eed55fa8728fc43833",
+    "content-hash": "0ad74e5b399da4868eeb3a71d53e6922",
     "packages": [
         {
             "name": "brick/math",
@@ -3285,6 +3285,42 @@
                 }
             ],
             "time": "2024-04-27T21:32:50+00:00"
+        },
+        {
+            "name": "regularuser548/laravel-phone-book",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "packages/regularuser548/laravel-phone-book",
+                "reference": "1f983112dd15b1e0ead16a35751dad11fa555fd7"
+            },
+            "require": {
+                "illuminate/support": "^12.16",
+                "php": "^8.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Regularuser548\\LaravelPhoneBook\\Providers\\PhoneBookServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Regularuser548\\LaravelPhoneBook\\": "src/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "regularuser548",
+                    "email": "regularuser548@tutanota.com"
+                }
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "symfony/clock",
@@ -8093,12 +8129,14 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "regularuser548/laravel-phone-book": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

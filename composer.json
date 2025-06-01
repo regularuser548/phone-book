@@ -8,7 +8,8 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^12.0",
-        "laravel/tinker": "^2.10.1"
+        "laravel/tinker": "^2.10.1",
+        "regularuser548/laravel-phone-book": "@dev"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -26,6 +27,15 @@
             "Database\\Seeders\\": "database/seeders/"
         }
     },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "packages/regularuser548/laravel-phone-book",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
