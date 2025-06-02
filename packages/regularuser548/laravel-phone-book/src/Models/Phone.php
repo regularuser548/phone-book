@@ -13,16 +13,16 @@ class Phone extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'person_id',
+        'contact_id',
         'number',
     ];
 
     /**
-     * Get the person that owns this phone.
+     * Get the contact that owns this phone.
      *
      */
-    public function person(): BelongsTo
+    public function contact(): BelongsTo
     {
-        return $this->belongsTo(Person::class);
+        return $this->belongsTo(Contact::class);
     }
 }

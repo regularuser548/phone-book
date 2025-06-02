@@ -1,0 +1,113 @@
+@extends('laravel-phone-book::app')
+
+@section('content')
+    <div class="py-4">
+
+        <h2 class="mb-4">Додати новий контакт</h2>
+
+        {{-- Форма додавання --}}
+        <form method="POST" action="{{ route('contacts.store') }}" id="contact-form">
+            @csrf
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="first_name" class="form-label">Ім’я</label>
+                    <input type="text" name="first_name" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="last_name" class="form-label">Прізвище</label>
+                    <input type="text" name="last_name" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <label class="form-label">Телефони</label>
+                <div id="phone-fields">
+                    <div class="input-group mb-2">
+                        <input type="tel" name="phones[]" class="form-control" placeholder="Введіть телефон" required>
+                        <button type="button" class="btn btn-outline-secondary add-phone">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Зберегти</button>
+        </form>
+
+        <hr class="my-5">
+
+        <h2 class="mb-4">Список контактів</h2>
+
+        {{-- Таблиця з контактами --}}
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>Ім’я</th>
+                    <th>Прізвище</th>
+                    <th>Телефони</th>
+                    <th>Дії</th>
+                </tr>
+                </thead>
+                <tbody>
+                @forelse ($contacts as $contact)
+                    <tr>
+                        <td>{{ $loop->iteration + ($contacts->currentPage() - 1) * $contacts->perPage() }}</td>
+                        <td>{{ $contact->first_name }}</td>
+                        <td>{{ $contact->last_name }}</td>
+                        <td>
+                            <ul class="list-unstyled mb-0">
+                                @foreach ($contact->phones as $phone)
+                                    <li>{{ $phone->number }}</li>
+                                @endforeach
+                            </ul>
+                        </td>
+                        <td>
+                            {{-- Редагувати/видалити --}}
+                            <form action="{{ route('contacts.destroy', $contact) }}" method="POST"
+                                  onsubmit="return confirm('Ви впевнені, що хочете видалити цей контакт?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger">Видалити</button>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="5" class="text-center">Контактів не знайдено</td>
+                    </tr>
+                @endforelse
+                </tbody>
+            </table>
+
+            {{ $contacts->links() }}
+        </div>
+
+    </div>
+@endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const phoneFields = document.getElementById('phone-fields');
+
+            phoneFields.addEventListener('click', function (e) {
+                if (e.target.classList.contains('add-phone')) {
+                    const group = document.createElement('div');
+                    group.className = 'input-group mb-2';
+                    group.innerHTML = `
+                <input type="tel" name="phones[]" class="form-control" placeholder="Введіть телефон" required>
+                <button type="button" class="btn btn-outline-danger remove-phone">−</button>
+            `;
+                    phoneFields.appendChild(group);
+                }
+
+                if (e.target.classList.contains('remove-phone')) {
+                    e.target.closest('.input-group').remove();
+                }
+            });
+        });
+    </script>
+@endpush
+

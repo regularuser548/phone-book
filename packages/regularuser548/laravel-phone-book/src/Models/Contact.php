@@ -5,7 +5,7 @@ namespace Regularuser548\LaravelPhoneBook\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Person extends Model
+class Contact extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -18,7 +18,7 @@ class Person extends Model
     ];
 
     /**
-     * Get all phones for this person.
+     * Get all phones for this contact.
      *
      */
     public function phones(): HasMany
