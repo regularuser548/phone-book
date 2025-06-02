@@ -3292,7 +3292,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/regularuser548/laravel-phone-book",
-                "reference": "1f983112dd15b1e0ead16a35751dad11fa555fd7"
+                "reference": "2698a0a6427fd345d0463440e9b2b10e5412f522"
             },
             "require": {
                 "illuminate/support": "^12.16",
@@ -3308,7 +3308,9 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Regularuser548\\LaravelPhoneBook\\": "src/"
+                    "Regularuser548\\LaravelPhoneBook\\": "src/",
+                    "Regularuser548\\LaravelPhoneBook\\Database\\Factories\\": "database/factories/",
+                    "Regularuser548\\LaravelPhoneBook\\Database\\Seeders\\": "database/seeders/"
                 }
             },
             "authors": [

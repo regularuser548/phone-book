@@ -3,7 +3,10 @@
 namespace Regularuser548\LaravelPhoneBook\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Regularuser548\LaravelPhoneBook\Http\Requests\ContactStoreRequest;
 use Regularuser548\LaravelPhoneBook\Models\Contact;
 
 class ContactController
@@ -13,54 +16,38 @@ class ContactController
      */
     public function index(): View
     {
-        return view('laravel-phone-book::index', ['contacts' => Contact::paginate()]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $contacts = Contact::with('phones')->paginate();
+        return view('laravel-phone-book::index', compact('contacts'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ContactStoreRequest $request): RedirectResponse
     {
-        //
-    }
+        DB::transaction(function () use ($request) {
+            $contact = Contact::create($request->validated());
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+            $contact->phones()->createMany(
+                collect($request->validated('phones'))
+                    ->map(fn($p) => ['number' => $p])
+                    ->toArray()
+            );
+        });
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+        return redirect()->back()->with('success', 'Контакт додано.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Contact $contact): RedirectResponse
     {
-        //
+        DB::transaction(function () use ($contact) {
+            $contact->phones()->delete();
+            $contact->delete();
+        });
+
+        return redirect()->back()->with('success', 'Контакт видалено!');
     }
 }

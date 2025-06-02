@@ -11,13 +11,13 @@
 
             <div class="row g-3">
                 <div class="col-md-6">
-                    <label for="first_name" class="form-label">Ім’я</label>
-                    <input type="text" name="first_name" class="form-control" required>
+                    <label for="name" class="form-label">Ім’я</label>
+                    <input type="text" name="name" class="form-control" required>
                 </div>
 
                 <div class="col-md-6">
-                    <label for="last_name" class="form-label">Прізвище</label>
-                    <input type="text" name="last_name" class="form-control" required>
+                    <label for="surname" class="form-label">Прізвище</label>
+                    <input type="text" name="surname" class="form-control" required>
                 </div>
             </div>
 
@@ -54,8 +54,8 @@
                 @forelse ($contacts as $contact)
                     <tr>
                         <td>{{ $loop->iteration + ($contacts->currentPage() - 1) * $contacts->perPage() }}</td>
-                        <td>{{ $contact->first_name }}</td>
-                        <td>{{ $contact->last_name }}</td>
+                        <td>{{ $contact->name }}</td>
+                        <td>{{ $contact->surname }}</td>
                         <td>
                             <ul class="list-unstyled mb-0">
                                 @foreach ($contact->phones as $phone)
@@ -64,7 +64,7 @@
                             </ul>
                         </td>
                         <td>
-                            {{-- Редагувати/видалити --}}
+                            {{-- Видалити --}}
                             <form action="{{ route('contacts.destroy', $contact) }}" method="POST"
                                   onsubmit="return confirm('Ви впевнені, що хочете видалити цей контакт?');">
                                 @csrf

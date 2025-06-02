@@ -7,7 +7,9 @@
     },
     "autoload": {
         "psr-4": {
-            "Regularuser548\\LaravelPhoneBook\\": "src/"
+            "Regularuser548\\LaravelPhoneBook\\": "src/",
+            "Regularuser548\\LaravelPhoneBook\\Database\\Factories\\": "database/factories/",
+            "Regularuser548\\LaravelPhoneBook\\Database\\Seeders\\": "database/seeders/"
         }
     },
     "authors": [
