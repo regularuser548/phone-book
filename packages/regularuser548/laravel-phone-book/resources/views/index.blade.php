@@ -5,6 +5,24 @@
 
         <h2 class="mb-4">Додати новий контакт</h2>
 
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрити"></button>
+            </div>
+        @endif
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <strong>Помилки при заповненні форми:</strong>
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         {{-- Форма додавання --}}
         <form method="POST" action="{{ route('contacts.store') }}" id="contact-form">
             @csrf

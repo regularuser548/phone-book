@@ -28,11 +28,11 @@ class ContactController
         DB::transaction(function () use ($request) {
             $contact = Contact::create($request->validated());
 
-            $contact->phones()->createMany(
-                collect($request->validated('phones'))
-                    ->map(fn($p) => ['number' => $p])
-                    ->toArray()
-            );
+            $phones = collect($request->validated('phones'))
+                ->map(fn($p) => ['number' => $p])
+                ->toArray();
+
+            $contact->phones()->createMany($phones);
         });
 
         return redirect()->back()->with('success', 'Контакт додано.');
