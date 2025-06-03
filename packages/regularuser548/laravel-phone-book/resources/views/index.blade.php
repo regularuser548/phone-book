@@ -43,7 +43,9 @@
                 <label class="form-label">Телефони</label>
                 <div id="phone-fields">
                     <div class="input-group mb-2">
-                        <input type="tel" name="phones[]" class="form-control" placeholder="Введіть телефон" required>
+                        <input type="tel" name="phones[]" class="form-control"
+                               placeholder="Введіть телефон у форматі: +[код країни][номер]" required
+                               pattern="^\+[1-9]\d{1,14}$">
                         <button type="button" class="btn btn-outline-secondary add-phone">+</button>
                     </div>
                 </div>
@@ -102,6 +104,15 @@
             {{ $contacts->links() }}
         </div>
 
+        <template id="phone-field-template">
+            <div class="input-group mb-2">
+                <input type="tel" name="phones[]" class="form-control"
+                       placeholder="Введіть телефон у форматі: +[код країни][номер]" required
+                       pattern="^\+[1-9]\d{1,14}$">
+                <button type="button" class="btn btn-outline-danger remove-phone">-</button>
+            </div>
+        </template>
+
     </div>
 @endsection
 
@@ -112,13 +123,9 @@
 
             phoneFields.addEventListener('click', function (e) {
                 if (e.target.classList.contains('add-phone')) {
-                    const group = document.createElement('div');
-                    group.className = 'input-group mb-2';
-                    group.innerHTML = `
-                <input type="tel" name="phones[]" class="form-control" placeholder="Введіть телефон" required>
-                <button type="button" class="btn btn-outline-danger remove-phone">−</button>
-            `;
-                    phoneFields.appendChild(group);
+                    const template = document.getElementById('phone-field-template');
+                    const clone = template.content.cloneNode(true);
+                    document.getElementById('phone-fields').appendChild(clone);
                 }
 
                 if (e.target.classList.contains('remove-phone')) {
